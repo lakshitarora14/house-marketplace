@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 // since we want to use this icon as component we will use this syntax
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 // since we need to set this as src for image tag
@@ -21,6 +21,24 @@ function SignIn() {
       [e.target.id]: e.target.value
     }))
   }
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const auth = getAuth()
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      if (userCredentials.user) {
+        navigate('/')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <div className='pageContainer'>
@@ -28,7 +46,7 @@ function SignIn() {
           <p className='pageHeader'>Welcome back !</p>
         </header>
         <main>
-          <form>
+          <form onSubmit={onSubmit}>
             <input
               type='email'
               className='emailInput'
