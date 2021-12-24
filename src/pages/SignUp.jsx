@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword
 } from 'firebase/auth'
 import { db } from '../firebase.config'
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
 // since we want to use this icon as component we will use this syntax
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 // since we need to set this as src for image tag
@@ -38,7 +39,15 @@ function SignUp() {
         password
       )
       const user = userCredential.user
+
       updateProfile(auth.currentUser, { dispayName: name })
+
+      const formDataCopy = { ...formData }
+      delete formDataCopy.password
+      formDataCopy.timestamp = serverTimestamp()
+
+      await setDoc(doc(db, 'users', user.uid), formDataCopy)
+
       navigate('/')
     } catch (error) {
       console.log(error)
