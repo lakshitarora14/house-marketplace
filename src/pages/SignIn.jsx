@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 // since we want to use this icon as component we will use this syntax
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
@@ -36,6 +36,7 @@ function SignIn() {
         navigate('/')
       }
     } catch (error) {
+      console.log(error)
       toast.error('Invalid User Credentials')
     }
   }
