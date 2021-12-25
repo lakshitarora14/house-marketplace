@@ -7,7 +7,7 @@ import {
   where,
   orderBy,
   limit,
-  startAfter,
+  startAfter
 } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { toast } from 'react-toastify'
@@ -46,7 +46,7 @@ function Category() {
         querySnap.forEach((doc) => {
           return listings.push({
             id: doc.id,
-            data: doc.data(),
+            data: doc.data()
           })
         })
 
@@ -86,7 +86,7 @@ function Category() {
       querySnap.forEach((doc) => {
         return listings.push({
           id: doc.id,
-          data: doc.data(),
+          data: doc.data()
         })
       })
 
