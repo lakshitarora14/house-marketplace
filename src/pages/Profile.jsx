@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { db } from '../firebase.config'
 import { updateDoc, doc } from 'firebase/firestore'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 function Profile() {
   const auth = getAuth()
   const navigate = useNavigate()
@@ -21,23 +21,23 @@ function Profile() {
   }
 
   const onSubmit = async () => {
-      try {
-          if(auth.currentUser.displayName !== name){
-            //   update display name in firebase
-              await updateProfile(auth.currentUser, {
-                  displayName: name
-              })
+    try {
+      if (auth.currentUser.displayName !== name) {
+        //   update display name in firebase
+        await updateProfile(auth.currentUser, {
+          displayName: name
+        })
 
-            //   update display name in firestore
-            const userRef = doc(db, 'users', auth.currentUser.uid)
-            await updateDoc(userRef, {
-                name
-            })
-          }
-      } catch (error) {
-          console.log(error)
-          toast.error('An error occured')
+        //   update display name in firestore
+        const userRef = doc(db, 'users', auth.currentUser.uid)
+        await updateDoc(userRef, {
+          name
+        })
       }
+    } catch (error) {
+      console.log(error)
+      toast.error('An error occured')
+    }
   }
   const onChange = (e) => {
     setFormData((prevState) => ({

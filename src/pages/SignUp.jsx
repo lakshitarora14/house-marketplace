@@ -11,7 +11,8 @@ import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 // since we need to set this as src for image tag
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
+import OAuth from '../components/OAuth'
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
@@ -95,7 +96,7 @@ function SignUp() {
                 onClick={() => setShowPassword((prevState) => !prevState)}
               />
             </div>
-            <Link to='/forgotPassword' className='forgotPasswordLink'>
+            <Link to='/forgot-password' className='forgotPasswordLink'>
               FORGOT PASSWORD{' '}
             </Link>
             <div className='signUpBar'>
@@ -105,7 +106,9 @@ function SignUp() {
               </button>
             </div>
           </form>
-          {/* google oauth component */}
+
+          <OAuth />
+
           <Link to='/sign-in' className='registerLink'>
             Sign In Instead
           </Link>
